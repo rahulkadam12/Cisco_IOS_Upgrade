@@ -1,0 +1,15 @@
+- name: "To reboot and apply new IOS on Switch {{ switch_name }}"
+  cli_command:
+    command: "install add file flash:{{ IOS }} activate commit"
+    check_all: True
+    prompt: 
+      - "This operation may require a reload of the system. Do you want to proceed"
+      - "Install will reload the system now"
+    answer:
+      - y
+      - y
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address
+  delegate_to: '{{ switch_name | trim }}.xyz.com'
+  when: Device_type == "9200" and "verify_md5 is search(MD5)"
+  register: new_reboot

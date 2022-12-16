@@ -1,0 +1,10 @@
+#IOS FileName
+IOS: cat9k_lite_iosxe.16.12.04.SPA.bin
+#FTP Details - your username and FTP server 
+SCP: scp://test@192.168.10.10//home/test/cat9k_lite_iosxe.16.12.04.SPA.bin
+#MD5 Value from Cisco 
+MD5: 008101d12e11f1f5c8b8cf5627ff0c43
+#boot location
+BOOT_FLASH: boot system flash:cat9k_lite_iosxe.16.12.04.SPA.bin
+#IOS version
+IOS_Version: "16.12.04"

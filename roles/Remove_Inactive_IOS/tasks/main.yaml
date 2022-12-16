@@ -1,0 +1,13 @@
+- name: "To remove Inactive IOS from Flash on Switch {{ switch_name }}"
+  cli_command:
+    command: "install remove inactive"
+    check_all: True
+    prompt: 
+      - Do you want to remove the above files?
+    answer:
+      - "y"
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address
+  delegate_to: '{{ switch_name | trim }}.xyz.com'
+  when: Device_type == "9200"
+  register: new_scp

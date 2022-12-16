@@ -1,0 +1,26 @@
+---
+- hosts: all
+  gather_facts: no
+#  connection : local
+
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: ios
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_user: "{{ user_name | trim }}" # input from Ansible Tower
+    ansible_password: "{{ password }}" # input from Ansible Tower
+    ansible_become_password: "{{ password }}"
+    ansible_command_timeout: 3600
+    
+  roles:
+       - role: Get_IOS_Version
+       - role: Add_config
+       - role: Remove_Inactive_IOS
+       - role: Copy_IOS
+       - role: MD5_Check
+       - role: Save_Configuration
+       - role: Change_Boot_TO_New_IOS
+       - role: Wait_for_Device
+       - role: Verify_New_IOS
+       - role: Send-eMail

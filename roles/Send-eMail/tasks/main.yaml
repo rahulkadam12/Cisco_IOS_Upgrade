@@ -1,0 +1,24 @@
+- name: To Check new Image Version {{ switch_name | trim }} 
+  ios_facts:
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address
+  delegate_to: '{{ switch_name | trim }}.xyz.com'
+
+
+- name: Send email to INS Operations
+  mail:
+    host: smtp.test.com
+    port: 25
+    to: "{{ eMail }}" # your email address as a input from Ansible Tower
+    subject: IOS Upgrade status on Switch {{ switch_name }}
+    subtype: html
+    body: '<p style="font-family:courier;">Dear Operations Team,</p>
+           <p style="font-family:courier;">The IOS has been successfully updated on Switch {{ switch_name }} details are shown below.</p>
+           <ul><li style="font-family:courier;">Switch Name - <b>{{ switch_name }}</b></li>
+           <li style="font-family:courier;">IOS-Version  - <b>{{ IOS_Version }}</b></li>
+           <li style="font-family:courier;">Device Model - <b>{{ Device_type }}</b></li>
+           <p style="font-family:courier;">Thanks & Regards</p>
+           <p style="font-family:courier;"><b>Network Team.</b></p>'
+    from: xyz@test.com
+  delegate_to: localhost
+  when: IOS_Version == ansible_net_version

@@ -1,0 +1,11 @@
+- name: To Check new Image Version {{ switch_name | trim }} 
+  ios_facts:
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address
+  delegate_to: '{{ switch_name | trim }}.xyz.com'
+
+- name: View OS Version
+  debug:
+    msg: 
+    - "The New IOS Version on Switch {{ switch_name | trim }} is {{ ansible_net_version }}"
+  when: IOS_Version == ansible_net_version

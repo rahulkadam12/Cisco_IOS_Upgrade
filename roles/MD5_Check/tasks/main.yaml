@@ -1,0 +1,7 @@
+- name: Verify MD5 Check
+  ios_command:
+    commands: "verify /md5 {{ IOS }}"
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address
+  delegate_to: '{{ switch_name | trim }}.xyz.com'
+  register: verify_md5

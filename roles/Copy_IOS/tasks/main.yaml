@@ -1,0 +1,20 @@
+- name: Copy Image // This could take up to 30 minutes depends upon site bandwidth..
+  cli_command:
+    command: "copy {{ SCP }} flash:"
+    check_all: True
+    prompt: 
+      - Destination filename
+      - Password
+    answer:
+      - "{{ IOS }}"
+      - "{{ ENV_PASSWORD1 }}" # your TACACS password or device password varaible as a Input from Ansible Tower
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address    
+  delegate_to: '{{ switch_name | trim }}.xyz.com'
+  no_log: True
+  register: new_scp
+
+- name: The output of Copy Image
+  debug:
+    var: new_scp.stdout
+    verbosity: 2

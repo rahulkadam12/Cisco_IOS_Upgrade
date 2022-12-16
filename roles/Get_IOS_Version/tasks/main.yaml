@@ -1,0 +1,22 @@
+- name: To check the IOS version of {{ switch_name }}
+  ios_facts:
+  #  gather_subset: all
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address
+  delegate_to: '{{ switch_name | trim }}.xyz.com'
+  
+- name: View OS Version
+  debug:
+    msg: 
+    - "The current version of IOS is {{ ansible_net_version }}"
+    - "The version to be upgraded on the switch {{ switch_name | trim }} is {{ IOS_Version }}"
+
+- name: "To verify if the IOS version is {{ IOS_Version }}"
+  debug:
+    msg:
+    - "The current version of IOS is not compliant and will be upgraded to {{ IOS_Version }}"
+  when: ansible_net_version != IOS_Version
+
+- name: "If IOS version is {{ IOS_Version }}"
+  when: ansible_net_version == IOS_Version
+  meta: end_play

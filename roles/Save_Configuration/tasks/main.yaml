@@ -1,0 +1,6 @@
+- name: Save running to startup when modified
+  ios_config:
+    save_when: always
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address
+  delegate_to: '{{ switch_name | trim }}.xyz.com'

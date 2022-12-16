@@ -1,0 +1,8 @@
+- name: "Configure Software upgrade command on switch {{ switch_name }}"
+  ios_config:
+    lines:
+    - software auto-upgrade enable
+  # your switch_name from Ansible Tower as Input
+  # Fully Qualified Domain Name or IP address
+  delegate_to: '{{ switch_name | trim }}.xyz.com'
+  when: Device_type == "9200"
